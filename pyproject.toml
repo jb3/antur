@@ -1,9 +1,23 @@
 [tool.poetry]
 name = "antur"
 version = "0.1.0"
-description = ""
+description = "Antur is a Python TUI tool for browsing and debugging sitemap data."
+license = "MIT"
 authors = ["Joe Banks <joe@jb3.dev>"]
 readme = "README.md"
+homepage = "https://github.com/jb3/antur"
+repository = "https://github.com/jb3/antur"
+keywords = ["sitemap", "xml", "tui", "cli", "debugging", "browser"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Utilities",
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
