@@ -25,9 +25,7 @@ class Error:
     message: str
 
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; AnturSitemap/2.1; +http://github.com/jb3/antur)"
-}
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AnturSitemap/2.1; +http://github.com/jb3/antur)"}
 
 IGNORE_TAGS = ["lastmod", "changefreq", "priority", "loc"]
 
@@ -65,9 +63,7 @@ class SitemapParser:
         child = element.find(tag)
         return child.text if child is not None else None
 
-    async def parse(
-        self: "SitemapParser", url: str | None = None
-    ) -> dict[str, Entry | Error]:
+    async def parse(self: "SitemapParser", url: str | None = None) -> dict[str, Entry | Error]:
         """Parse the sitemap at the given URL."""
         if not url:
             url = self.url
@@ -102,9 +98,7 @@ class SitemapParser:
                     self._maybe_child(child, "{*}lastmod"),
                     self._maybe_child(child, "{*}changefreq"),
                     self._maybe_child(child, "{*}priority"),
-                    tostring(
-                        self._filter_out_children(child), pretty_print=True
-                    ).decode(),
+                    tostring(self._filter_out_children(child), pretty_print=True).decode(),
                 )
 
         return level

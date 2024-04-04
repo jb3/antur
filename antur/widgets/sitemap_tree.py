@@ -20,8 +20,9 @@ from textual.widget import Widget
 from textual.widgets import Static, Tree
 from textual.widgets.tree import TreeNode
 
+from antur.utils.sitemap_parser import Entry, Error, SitemapParser
+
 from .node_info import NodeInfo
-from .sitemap_parser import Entry, Error, SitemapParser
 
 
 def dict_to_tree(dictionary: dict, tree: Tree | TreeNode) -> None:

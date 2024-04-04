@@ -15,7 +15,7 @@ from textual.reactive import reactive
 from textual.widget import Widget
 from textual.widgets import Markdown
 
-from .sitemap_parser import Error
+from antur.utils.sitemap_parser import Error
 
 URL_TEMPLATE = """
 # {node.url}

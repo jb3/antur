@@ -7,9 +7,9 @@ from textual.containers import Vertical
 from textual.reactive import reactive
 from textual.widgets import Footer, Header
 
-from .node_info import NodeInfo
-from .search_bar import SearchBar
-from .sitemap_tree import SitemapTree
+from .widgets.node_info import NodeInfo
+from .widgets.search_bar import SearchBar
+from .widgets.sitemap_tree import SitemapTree
 
 
 class AnturApp(App):
