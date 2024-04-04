@@ -23,7 +23,6 @@ classifiers = [
 python = "^3.11"
 textual = "^0.55.1"
 aiohttp = "^3.9.3"
-defusedxml = "^0.7.1"
 humanize = "^4.9.0"
 lxml = "^5.2.1"
 
