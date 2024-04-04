@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "antur"
+version = "0.1.0"
+description = ""
+authors = ["Joe Banks <joe@jb3.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+textual = "^0.55.1"
+aiohttp = "^3.9.3"
+defusedxml = "^0.7.1"
+humanize = "^4.9.0"
+lxml = "^5.2.1"
+
+
+[tool.poetry.group.dev.dependencies]
+textual-dev = "^1.5.1"
+ruff = "^0.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+antur = "antur.__main__:main"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "ANN",
+    "B",
+    "C4",
+    "D",
+    "DTZ",
+    "E",
+    "F",
+    "I",
+    "ISC",
+    "INT",
+    "N",
+    "PGH",
+    "PIE",
+    "Q",
+    "RET",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "T20",
+    "TID",
+    "UP",
+    "W",
+]
+ignore = ["D203", "D212"]
+
+[tool.ruff.lint.isort]
+order-by-type = false
+case-sensitive = true
+combine-as-imports = true
