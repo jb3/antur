@@ -7,6 +7,8 @@ from textual.containers import Vertical
 from textual.reactive import reactive
 from textual.widgets import Footer, Header
 
+from antur import __version__
+
 from .widgets.node_info import NodeInfo
 from .widgets.search_bar import SearchBar
 from .widgets.sitemap_tree import SitemapTree
@@ -31,11 +33,13 @@ class AnturApp(App):
 
     TITLE = "Antur"
 
+    SUB_TITLE = f"v{__version__}"
+
     show_markdown = reactive(False)
 
     def compose(self: "AnturApp") -> ComposeResult:
         """Compose the layout of the app."""
-        yield Header("Antur")
+        yield Header(False)
         yield SearchBar()
         with Vertical(id="contents"):
             with Vertical(id="main"):
