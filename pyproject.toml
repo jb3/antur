@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "antur"
-version = "0.1.0"
+version = "0.2.0"
 description = "Antur is a Python TUI tool for browsing and debugging sitemap data."
 license = "MIT"
 authors = ["Joe Banks <joe@jb3.dev>"]
