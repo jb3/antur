@@ -1,5 +1,6 @@
 """Parse a sitemap file and return a dict of URLs and their metadata."""
 
+import asyncio
 from dataclasses import dataclass
 
 import aiohttp
@@ -29,6 +30,8 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AnturSitemap/2.1; +http://git
 
 IGNORE_TAGS = ["lastmod", "changefreq", "priority", "loc"]
 
+MAX_CONCURRENT_REQUESTS = 40
+
 
 class SitemapParser:
     """Parse a sitemap file and return a dict of URLs and their metadata."""
@@ -41,6 +44,8 @@ class SitemapParser:
         self.found_sitemaps = 0
         self.http_errors = 0
         self.xml_errors = 0
+
+        self.semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
 
     async def get_data(self: "SitemapParser", url: str) -> bytes:
         """Fetch the data from the URL."""
@@ -70,11 +75,12 @@ class SitemapParser:
 
         level = {}
 
-        try:
-            data = await self.get_data(url)
-        except aiohttp.ClientError as e:
-            self.http_errors += 1
-            return Error(url, str(e))
+        async with self.semaphore:
+            try:
+                data = await self.get_data(url)
+            except aiohttp.ClientError as e:
+                self.http_errors += 1
+                return Error(url, str(e))
 
         try:
             parsed = fromstring(data)  # noqa: S320
@@ -83,11 +89,17 @@ class SitemapParser:
             return Error(url, str(e))
 
         if parsed.tag.endswith("sitemapindex"):
+            child_tasks = {}
             for child in parsed:
                 if child.tag.endswith("sitemap"):
                     loc = child.find("{*}loc").text
                     self.found_sitemaps += 1
-                    level[loc] = await self.parse(loc)
+                    child_tasks[loc] = self.parse(loc)
+
+            results = await asyncio.gather(*child_tasks.values())
+
+            for loc, result in zip(child_tasks.keys(), results):
+                level[loc] = result
 
         if parsed.tag.endswith("urlset"):
             for child in parsed:
