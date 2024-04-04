@@ -1,5 +1,9 @@
 # Antur
 
+![PyPI - Version](https://img.shields.io/pypi/v/antur?style=for-the-badge)
+![PyPI - License](https://img.shields.io/pypi/l/antur?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/jb3/antur?style=for-the-badge)
+
 Antur is a Python TUI tool for browsing and debugging sitemap data.
 
 > [!NOTE]
@@ -12,15 +16,13 @@ Antur is a Python TUI tool for browsing and debugging sitemap data.
 ## Installation
 
 ```bash
-$ git clone git@github.com:jb3/antur.git
-$ cd antur
-$ poetry install
+$ pip install antur
 ```
 
 ## Usage
 
 ```bash
-$ poetry run antur
+$ antur
 ```
 
 ## License
