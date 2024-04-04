@@ -6,6 +6,8 @@ from dataclasses import dataclass
 import aiohttp
 from lxml.etree import Element, fromstring, tostring
 
+from antur import __version__
+
 
 @dataclass
 class Entry:
@@ -26,7 +28,9 @@ class Error:
     message: str
 
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AnturSitemap/2.1; +http://github.com/jb3/antur)"}
+HEADERS = {
+    "User-Agent": f"Mozilla/5.0 (compatible; AnturSitemap/{__version__}; +http://github.com/jb3/antur)"
+}
 
 IGNORE_TAGS = ["lastmod", "changefreq", "priority", "loc"]
 
