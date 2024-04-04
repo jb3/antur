@@ -1,5 +1,5 @@
 """Init file for antur package."""
 
-import pkg_resources
+from importlib.metadata import version
 
-__version__ = pkg_resources.get_distribution("antur").version
+__version__ = version("antur")
