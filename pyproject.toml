@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 textual = "^0.55.1"
 aiohttp = "^3.9.3"
 humanize = "^4.9.0"
