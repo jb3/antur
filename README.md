@@ -7,7 +7,7 @@ Antur is a Python TUI tool for browsing and debugging sitemap data.
 
 ## Demo
 
-![Demo](demo.gif)
+![Demo](./resources/demo.gif)
 
 ## Installation
 
