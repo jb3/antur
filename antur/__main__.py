@@ -15,6 +15,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("url", nargs="?", help="The URL of a sitemap to start with.")
 
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+
+    parser.add_argument(
+        "-c",
+        "--concurrent",
+        type=int,
+        help="The number of concurrent requests to make.",
+        default=40,
+    )
     return parser.parse_args()
 
 
@@ -22,7 +30,7 @@ def main() -> None:
     """Run the Antur application."""
     args = parse_args()
 
-    app = AnturApp(args.url)
+    app = AnturApp(args.url, max_concurrent_requests=args.concurrent)
     app.run()
 
 

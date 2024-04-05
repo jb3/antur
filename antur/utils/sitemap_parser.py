@@ -34,13 +34,11 @@ HEADERS = {
 
 IGNORE_TAGS = ["lastmod", "changefreq", "priority", "loc"]
 
-MAX_CONCURRENT_REQUESTS = 40
-
 
 class SitemapParser:
     """Parse a sitemap file and return a dict of URLs and their metadata."""
 
-    def __init__(self: "SitemapParser", url: str) -> None:
+    def __init__(self: "SitemapParser", url: str, max_concurrent_requests: int) -> None:
         """Initialize the parser."""
         self.url = url
         self.data = {}
@@ -49,7 +47,7 @@ class SitemapParser:
         self.http_errors = 0
         self.xml_errors = 0
 
-        self.semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
+        self.semaphore = asyncio.Semaphore(max_concurrent_requests)
 
     async def get_data(self: "SitemapParser", url: str) -> bytes:
         """Fetch the data from the URL."""
