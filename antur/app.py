@@ -37,13 +37,19 @@ class AnturApp(App):
 
     show_markdown = reactive(False)
 
+    def __init__(self: "AnturApp", url: str | None = None) -> None:
+        """Initialize the Antur application."""
+        super().__init__()
+
+        self.url = url
+
     def compose(self: "AnturApp") -> ComposeResult:
         """Compose the layout of the app."""
         yield Header(False)
-        yield SearchBar()
+        yield SearchBar(self.url)
         with Vertical(id="contents"):
             with Vertical(id="main"):
-                yield SitemapTree()
+                yield SitemapTree(self.url)
                 yield NodeInfo()
             yield Footer()
 
