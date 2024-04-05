@@ -59,11 +59,18 @@ class SitemapTree(Widget):
 
     BINDINGS: ClassVar = [("o", "open", "Open the selected item in the browser.")]
 
-    def __init__(self: "SitemapTree", url: str | None = None, *args: tuple, **kwargs: dict) -> None:
+    def __init__(
+        self: "SitemapTree",
+        url: str | None = None,
+        max_concurrent_requests: int = 40,
+        *args: tuple,
+        **kwargs: dict,
+    ) -> None:
         """Initialize the sitemap tree."""
         super().__init__(*args, **kwargs)
 
         self.target = url
+        self.max_concurrent_requests = max_concurrent_requests
 
     def compose(self: "SitemapTree") -> ComposeResult:
         """Compose the sitemap tree."""
@@ -86,7 +93,7 @@ class SitemapTree(Widget):
         if value:
             self.loading = True
 
-            parser = SitemapParser(value)
+            parser = SitemapParser(value, self.max_concurrent_requests)
             self.tree_data = await parser.parse()
 
             self.loading = False
