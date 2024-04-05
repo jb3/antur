@@ -59,9 +59,11 @@ class SitemapTree(Widget):
 
     BINDINGS: ClassVar = [("o", "open", "Open the selected item in the browser.")]
 
-    def __init__(self: "SitemapTree", *args: tuple, **kwargs: dict) -> None:
+    def __init__(self: "SitemapTree", url: str | None = None, *args: tuple, **kwargs: dict) -> None:
         """Initialize the sitemap tree."""
         super().__init__(*args, **kwargs)
+
+        self.target = url
 
     def compose(self: "SitemapTree") -> ComposeResult:
         """Compose the sitemap tree."""

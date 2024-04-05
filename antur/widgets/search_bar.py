@@ -26,15 +26,17 @@ def is_url(value: str) -> bool:
 class SearchBar(Widget):
     """Search bar widget."""
 
-    def __init__(self: "SearchBar", *args: tuple, **kwargs: dict) -> None:
+    def __init__(self: "SearchBar", url: str | None = None, *args: tuple, **kwargs: dict) -> None:
         """Initialize the search bar."""
         super().__init__(*args, **kwargs)
+
+        self.url = url
 
     def compose(self: "SearchBar") -> ComposeResult:
         """Compose the search bar."""
         with Horizontal(id="buttons-container"):
             yield Input(
-                None,
+                self.url,
                 "Sitemap URL",
                 id="search-bar",
                 validate_on=["changed", "submitted"],
