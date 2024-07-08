@@ -29,7 +29,7 @@ lxml = "^5.2.1"
 
 [tool.poetry.group.dev.dependencies]
 textual-dev = "^1.5.1"
-ruff = "^0.4.0"
+ruff = ">=0.4,<0.6"
 
 [build-system]
 requires = ["poetry-core"]
