@@ -107,12 +107,15 @@ class SitemapParser:
             for child in parsed:
                 loc = child.find("{*}loc").text
                 self.found_urls += 1
+
+                other_formatted = tostring(self._filter_out_children(child), pretty_print=True)
+
                 level[loc] = Entry(
                     loc,
                     self._maybe_child(child, "{*}lastmod"),
                     self._maybe_child(child, "{*}changefreq"),
                     self._maybe_child(child, "{*}priority"),
-                    tostring(self._filter_out_children(child), pretty_print=True).decode(),
+                    other_formatted.decode(),
                 )
 
         return level
