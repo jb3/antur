@@ -28,7 +28,7 @@ from .node_info import NodeInfo
 def dict_to_tree(dictionary: dict, tree: Tree | TreeNode) -> None:
     """Move a dictionary into the provided tree structure in-place."""
     for key, value in dictionary.items():
-        if isinstance(value, (Entry, Error)):
+        if isinstance(value, Entry | Error):
             tree.add_leaf(key, data=value)
         else:
             sub_tree = tree.add(key)
@@ -39,13 +39,17 @@ class CustomTree(Tree):
     """Custom tree widget to aid with formatting."""
 
     def render_label(
-        self: "CustomTree", node: TreeNode, base_style: Style, additional_style: Style
+        self: "CustomTree",
+        node: TreeNode,
+        base_style: Style,
+        additional_style: Style,
     ) -> Text:
         """Render the label with a custom style."""
         if hasattr(node, "data"):  # noqa: SIM102
             if isinstance(node.data, Error):
                 additional_style = Style.chain(
-                    additional_style, Style.from_color(Color.parse("red"))
+                    additional_style,
+                    Style.from_color(Color.parse("red")),
                 )
 
         return super().render_label(node, base_style, additional_style)

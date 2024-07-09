@@ -19,7 +19,7 @@ def is_url(value: str) -> bool:
             return False
 
         return all([result.scheme, result.netloc])
-    except Exception:
+    except ValueError:
         return False
 
 

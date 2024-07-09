@@ -4,7 +4,7 @@ import asyncio
 from dataclasses import dataclass
 
 import aiohttp
-from lxml.etree import Element, fromstring, tostring
+from lxml.etree import Element, XMLSyntaxError, fromstring, tostring
 
 from antur import __version__
 
@@ -29,7 +29,7 @@ class Error:
 
 
 HEADERS = {
-    "User-Agent": f"Mozilla/5.0 (compatible; AnturSitemap/{__version__}; +http://github.com/jb3/antur)"
+    "User-Agent": f"Mozilla/5.0 (compatible; AnturSitemap/{__version__}; +http://github.com/jb3/antur)",
 }
 
 IGNORE_TAGS = ["lastmod", "changefreq", "priority", "loc"]
@@ -51,9 +51,13 @@ class SitemapParser:
 
     async def get_data(self: "SitemapParser", url: str) -> bytes:
         """Fetch the data from the URL."""
-        async with aiohttp.ClientSession() as session, session.get(
-            url, headers=HEADERS
-        ) as response:
+        async with (
+            aiohttp.ClientSession() as session,
+            session.get(
+                url,
+                headers=HEADERS,
+            ) as response,
+        ):
             return await response.read()
 
     def _filter_out_children(self: "SitemapParser", element: Element) -> Element:
@@ -86,7 +90,7 @@ class SitemapParser:
 
         try:
             parsed = fromstring(data)  # noqa: S320
-        except Exception as e:
+        except XMLSyntaxError as e:
             self.xml_errors += 1
             return Error(url, str(e))
 
@@ -100,8 +104,9 @@ class SitemapParser:
 
             results = await asyncio.gather(*child_tasks.values())
 
-            for loc, result in zip(child_tasks.keys(), results):
-                level[loc] = result
+            level_data = dict(zip(child_tasks.keys(), results, strict=False))
+
+            level.update(level_data)
 
         if parsed.tag.endswith("urlset"):
             for child in parsed:

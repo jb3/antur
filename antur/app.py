@@ -35,7 +35,7 @@ class AnturApp(App):
 
     SUB_TITLE = f"v{__version__}"
 
-    show_markdown = reactive(False)
+    show_markdown = reactive(default=False)
 
     def __init__(self: "AnturApp", url: str | None = None, *, max_concurrent_requests: int) -> None:
         """Initialize the Antur application."""
@@ -46,7 +46,7 @@ class AnturApp(App):
 
     def compose(self: "AnturApp") -> ComposeResult:
         """Compose the layout of the app."""
-        yield Header(False)
+        yield Header(show_clock=False)
         yield SearchBar(self.url)
         with Vertical(id="contents"):
             with Vertical(id="main"):
