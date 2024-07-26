@@ -21,7 +21,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.12"
-textual = "^0.71.0"
+textual = ">=0.71,<0.75"
 aiohttp = "^3.9.5"
 humanize = "^4.10.0"
 lxml = "^5.2.1"
